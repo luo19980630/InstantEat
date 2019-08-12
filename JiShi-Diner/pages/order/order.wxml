@@ -1,0 +1,55 @@
+<!--order.wxml-->
+<view class="container">
+<!--餐位号 & 菜单选择-->
+  <view class="orderNum">
+    <view class="orderNumText">菜单</view>
+    <view class="MenuSelection" wx:for="{{menu_selection}}" wx:key="id" style="border-color:{{item.selection_color}}" size="mini" data-name="{{item.selection_name}}" bindtap="selectMenu">
+    <view class="MenuSelectionText" style="color:{{item.selection_text_color}}">{{item.selection_name}}</view>
+    </view>
+  </view>
+
+<!--菜单-->
+<scroll-view class="MenuFather" scroll-y="true" style='height:{{scroll_height}}rpx'>
+  <view wx:for="{{menu}}" wx:key="id" wx:if="{{item.dish_type == whichMenuSelection}}" class="Menu">
+    <text class="MenuText">{{item.dish_name}}</text>
+    <view class="MenuPrice">¥{{item.dish_price}}</view>
+    <view class="TasteOptioNSelection" id="{{item.dish_id}}_add" data-name="{{item.dish_name}}" data-feature="{{item.dish_type}}" bindtap="goToSelectTasteOption"><view class="TasteOptioNSelectionText">选口味</view></view>
+    <view wx:if="{{item.dish_total_amount > 0}}" class="MenuAmount"><view class="MenuAmountText">{{item.dish_total_amount}}</view></view>
+  </view>
+</scroll-view>
+
+<!--口味-->
+  <view class="TasteOption" wx:if="{{inSelectTasteOption == 1}}">
+    <view class="TasteOptionTitleTextFather">
+      <!-- <image class="TasteOptionImg" src='/images/temp.jpg'></image> -->
+      <view class="TasteOptionTitle">{{addEventTargetName}}</view> 
+      <view class="TasteOptionText">选择口味</view>
+    </view>
+    <view class="tasteOptionAmountFather">
+      <view class="addDishAmount" bindtap="addTempDish"><view class="sign">+</view></view>
+      <view class="tempdishAmount"><view class="sign">{{tempDishAmount}}</view></view>
+      <view class="minusDishAmount" bindtap="minusTempDish"><view class="sign">-</view></view>
+    </view>
+    <view wx:for="{{taste_option}}" wx:key="id" wx:if="{{item[0].option_feature == addEventTargetFeature}}">
+      <view class="TasteOptionType">{{item[0].option_type}}</view>
+      <view class="TasteOptionNameFather" wx:for="{{item}}" wx:key="id" wx:for-item="i">
+        <view class="TasteOptionName"  data-id="{{i.option_id}}" data-name="{{i.option_name}}" data-type="{{i.option_type}}" style="color:{{i.option_color}}" bindtap="selectTasteOption">{{i.option_name}}</view>
+    </view>
+    </view>
+    <view class="confirmCancelFather">
+      <view id="cancelTasteOption" bindtap="cancelTasteOption"><view class="cTasteOptionText">取消</view></view>
+      <view id="confirmTasteOption" bindtap="confirmTasteOption"><view class="cTasteOptionText">确定</view></view>
+    </view>
+  </view>
+</view>
+
+<view class="mask" wx:if="{{inSelectTasteOption == 1}}"></view>
+
+<!--下单-->
+  <view class="order">
+    <image class="currentTOTPriceImg" src='/images/currentTOTPrice.png'></image>
+    <text class="currentTOTPrice">已点：¥{{order_price}}</text>
+    <text class="orderNow" bindtap="placeOrder">去下单</text>
+    <view wx:if="{{order_amount > 0}}" class="currentTOTAmount"><view class="currentTOTAmountText">{{order_amount}}</view></view>
+  </view>
+<!-- this.setData({ [`menu[${i}].dish_total_amount`]: this.data.menu[i].dish_total_amount }); -->

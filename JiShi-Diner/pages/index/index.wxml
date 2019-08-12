@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="header">
+      <view class="logoFather">
+        <view wx:if="{{dine_in_id == ('')}}" class="logoText" bindtap="scan">请点此扫描餐位二维码</view>
+        <view wx:else class="logoText">{{resturant}}</view>
+      </view>
+      <view wx:if="{{dine_in_id == ('')}}" class="InfoText" bindtap="scan">餐位：暂无</view>
+      <view wx:else class="InfoText">餐位：{{table_id}}</view>
+    </view>
+    <view class="MenuBlock" bindtap="goToMenu">
+      <image class="img" src='/images/menu.png'></image>
+      <text class="sideText">菜单/点餐/下单</text>
+    </view>
+    <view class="DetailBlock" bindtap="goToDetails">
+      <image class="img" src='/images/detail.png'></image>
+      <view class="sideText">明细与餐品状态</view>
+    </view>
+    <view class="payment" bindtap="goToRequestService">
+      <image class="paymentImg" src='/images/service.png'></image>
+    </view>
+  <view class="recordFather">
+    <image class="policeImg" src='/images/birthday.png'></image>
+  </view>
+  <text class="recordLeft">伟大祖国</text>
+  <text class="recordRight">生日快乐</text>
+
+  <view class="checkout" wx:if="{{inGoToRequestService == 1}}">
+    <view class="checkoutTitleTextFather">
+      <view class="checkoutTitle">呼叫服务员</view> 
+      <view class="checkoutText">服务台！服务台！我是{{table_id}}！</view>
+    </view>
+    <view class="confirmCancelFather">
+      <view id="cancelCheckOut" bindtap="cancelRequestService"><view class="cText">取消</view></view>
+      <view id="confirmCheckOut" bindtap="confirmRequestService"><view class="cText">确定</view></view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{inGoToRequestService == 1}}"></view>
+</view>

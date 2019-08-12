@@ -1,0 +1,26 @@
+<!--placeOrder.wxml-->
+<view class="container">
+  <view class="OrderDetail">
+    <text class="OrderDetailText" style="color:#2196F3">本单明细 ({{order_amount}})</text>
+    <text class="OrderNumText">餐位：{{table_id}}</text>
+    <view class="OrderNumText">{{resturant}}</view>
+    <image class="EmptyCart" bindtap="emptyCart" src='/images/EmptyCart.png'></image>
+  </view>
+
+<scroll-view class="OrderContentFather" scroll-y="true" style='height:{{scroll_height}}rpx'> 
+<view class="OrderContent" wx:for="{{menu_selection}}" wx:key="id" wx:for-item="j">
+    <view class="OrderContentType">{{j.selection_name}}</view>
+    <view wx:for="{{order_content}}" wx:key="id" wx:for-item="i" wx:key="id">
+      <text class="OrderContentName" wx:if="{{j.selection_name == i.dish_type}}" >{{i.dish_name}} x{{i.dish_amount}} </text>
+      <text class="OrderContentTOTPrice"wx:if="{{j.selection_name == i.dish_type}}" >¥{{i.dish_total_price}}</text>
+      <view class="OrderContentPrice"wx:if="{{j.selection_name == i.dish_type}}" >¥{{i.dish_price}} {{i.dish_preference}}</view>
+    </view>
+</view>
+</scroll-view>
+
+  <view class="order">
+    <image class="currentTOTPriceImg" src='/images/currentTOTPriceImg.png'></image>
+    <text class="currentTOTPrice">小计：¥{{order_price}}</text>
+    <text class="orderNow" bindtap="orderNow">立即下单</text>
+  </view>
+</view>

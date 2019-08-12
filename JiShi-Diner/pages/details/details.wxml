@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="OrderDetail">
+    <text class="OrderDetailText" style="color:#2196F3">全部明细</text>
+    <text class="OrderNumText">餐位：{{table_id}}</text>
+    <view class="OrderNumText">{{resturant}}</view>
+  </view>
+
+<scroll-view class="OrderContentFather" scroll-y="true" style='height:{{scroll_height}}rpx'> 
+<view class="OrderContent" wx:for="{{menu_selection}}" wx:key="id" wx:for-item="j">
+    <view class="OrderContentType">{{j.selection_name}}</view>
+    <view wx:for="{{total_order_content}}" wx:for-item="i" wx:key="id">
+      <text class="OrderContentName" wx:if="{{j.selection_name == i.dish_type}}">{{i.dish_name}} x{{i.dish_amount}} </text>
+      <text class="OrderContentStatusIncompeleted" wx:if="{{j.selection_name == i.dish_type && i.dish_status == ('已下单')}}">{{i.dish_status}}</text>
+      <text class="OrderContentStatusCompeleted" wx:if="{{j.selection_name == i.dish_type && i.dish_status == ('已完成')}}">{{i.dish_status}}</text>
+      <text class="OrderContentTOTPrice"wx:if="{{j.selection_name == i.dish_type}}" >¥{{i.dish_total_price}}</text>
+      <view class="OrderContentPrice"wx:if="{{j.selection_name == i.dish_type}}" >¥{{i.dish_price}} {{i.dish_preference}}</view>
+    </view>
+</view>
+</scroll-view>
+
+  <view class="order">
+    <image class="currentTOTPriceImg" src='/images/details.png'></image>
+    <text class="currentTOTPrice">总计：¥{{total_order_price}}</text>
+    <text class="orderNow">结账请前往前台</text>
+  </view>
+</view>
