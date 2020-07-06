@@ -1,2 +1,2 @@
 # InstantEats
-A mobile order solution for both diners and waiters.
+An online order solution for small restaurant.
